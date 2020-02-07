@@ -11,7 +11,8 @@ const BASE_URL = 'http://localhost:5000/api';
 const LOGIN = 'LOGIN';
 const LOGOUT = 'LOGOUT';
 const REGISTER = 'REGISTER';
-const ADDITEM = 'ADDITEM';
+
+
 axios.defaults.withCredentials = true;
 
 const ProfileProvider = ({ children }) => {
@@ -21,9 +22,11 @@ const ProfileProvider = ({ children }) => {
     switch (type) {
       case LOGIN: {
         // Store the profile data in the state
+       
         return { ...prevState, loggedIn: true, ...payload };
       }
       case REGISTER: {
+       
         // Store the profile data in the state
         return { ...prevState, loggedIn: true, ...payload };
       }

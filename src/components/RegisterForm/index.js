@@ -2,10 +2,14 @@ import React, { useState, Fragment } from 'react';
 import { useProfileProvider } from 'contexts/profile';
 import { withRouter } from 'react-router-dom'
 import cookie from 'react-cookies'
+import { useBalanceProvider } from 'contexts/balance';
+import { useCartProvider } from 'contexts/cart';
 
 const Register = (props) => {
   const { history, cookies } = props;
   const { register } = useProfileProvider();
+  const { getBalance } = useBalanceProvider();
+  const { getItems } = useCartProvider();
   const [userDetails, setUserDetails] = useState({ });
   const [error, setError] = useState(false);
 
@@ -17,7 +21,8 @@ const Register = (props) => {
     event.preventDefault();
     if( passwordValidate() ){
       register(userDetails).then(() => {
-        console.log('cookie session', cookie.loadAll())
+        getBalance()
+        getItems()
         history.push('/dashboard')
       });
     } else {

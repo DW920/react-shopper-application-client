@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 import { useProfileProvider } from 'contexts/profile';
 
 const Login = (props) => {
-  const { history } = props;
+  const { history, getBalance, getItems } = props;
   const { login, state: { loggedIn } } = useProfileProvider();
   const [userDetails, setUserDetails] = useState({ });
 
   const attemptLogin = (event) => {
     event.preventDefault();
     login(userDetails).then(() => {
+      getBalance()
+      getItems()
       history.push('/dashboard')
     });
     

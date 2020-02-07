@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import { ProfileProvider, useProfileProvider } from 'contexts/profile';
+import { BalanceProvider } from 'contexts/balance';
 import { CartProvider } from 'contexts/cart';
 import HomePage from 'features/HomePage';
 import Dashboard from 'features/Dashboard';
@@ -18,12 +19,14 @@ const App = (props) => (
     <Router>
       <ProfileProvider>
         <CartProvider>
-          <Switch>
-            <ProtectedRoute path="/dashboard" component={Dashboard} />
-            <ProtectedRoute path="/cart" component={CartPage} />
-            <Route exact path="/" component={HomePage} />
-            <Route exact path="/register" render={() => <Register cookies={props.cookies} />}/>
-          </Switch>
+          <BalanceProvider>
+            <Switch>
+              <ProtectedRoute path="/dashboard" component={Dashboard} />
+              <ProtectedRoute path="/cart" component={CartPage} />
+              <Route exact path="/" component={HomePage} />
+              <Route exact path="/register" render={() => <Register cookies={props.cookies} />}/>
+            </Switch>
+          </BalanceProvider>
         </CartProvider>
       </ProfileProvider>
     </Router>

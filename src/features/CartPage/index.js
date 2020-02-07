@@ -4,27 +4,27 @@ import { useProfileProvider } from 'contexts/profile';
 import { useCartProvider } from 'contexts/cart';
 import CartForm from 'components/CartForm';
 import CardPanel from 'components/CartPanel';
+import { useBalanceProvider } from 'contexts/balance';
 
 const CartPage = (props) => {
  
   const { state: user} = useProfileProvider()
-  
-  const { addItem, state: { items, totalCost }, state } = useCartProvider();
-  console.log('real state', state)
+  const { addItem, removeItem, checkout, state: { items, totalCost } } = useCartProvider();
+  const { state: { balance } } = useBalanceProvider();
   const { loggedIn, username } = user;
-  
- 
-  // useEffect(() => {
-  //   getItems(user);
-  // });
-  
   
   if(loggedIn){
       return (
         <div className="home-page">
           <h1>Welcome to the CartPage</h1>
           <CartForm username={username} addItem={addItem} />
-          <CardPanel items={items} totalCost={totalCost} />
+          <CardPanel 
+            items={items} 
+            balance={balance} 
+            totalCost={totalCost} 
+            checkout={checkout} 
+            removeItem={removeItem}
+          />
         </div>
       )
     
