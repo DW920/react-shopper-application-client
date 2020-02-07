@@ -31,10 +31,6 @@ const ProfileProvider = ({ children }) => {
         // Reset state to logged out
         return initialState;
       }
-      case ADDITEM: {
-        // Store the profile data in the state
-        return { ...prevState, ...payload };
-      }
       default:
         throw new Error();
     }
@@ -59,11 +55,7 @@ const useProfileProvider = () => {
       dispatch({ type: REGISTER, payload: data });
     });
 
-  const addItem = itemInfo => axios
-    .post(`${BASE_URL}/cart`, itemInfo)
-    .then(({ data }) => {
-      dispatch({ type: ADDITEM, payload: data });
-    });
+  
 
   const logout = () => {
       dispatch({ type: LOGOUT });
@@ -76,7 +68,6 @@ const useProfileProvider = () => {
     login,
     logout,
     register,
-    addItem,
   };
 };
 

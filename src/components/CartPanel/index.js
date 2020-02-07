@@ -8,11 +8,19 @@ const Item = ({ name, cost }) => (
   </div>
 )
 const CartPanel = (props) => {
-  const { items } = props;
+  const { items, totalCost } = props;
+  console.log('cartpanel items', items)
   return (
     <div>
       <div className="item-board">
-      { items.map(item => <Item { ...item } />) }
+      <h4>{ totalCost }</h4>
+      {
+        items?(
+          items.map(item => <Item { ...item } />)
+        ):(
+          <span>...Loading</span>
+        )
+      }
       </div>
     </div>
   );

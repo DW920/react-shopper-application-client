@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 const CartForm = (props) => {
-  const { addItem, username } = props;
+  const { addItem } = props;
   const [itemInfo, setItemInfo] = useState({ });
 
   const addToCart = (event) => {
