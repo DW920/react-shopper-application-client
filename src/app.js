@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-d
 import { ProfileProvider, useProfileProvider } from 'contexts/profile';
 import HomePage from 'features/HomePage';
 import Dashboard from 'features/Dashboard';
+import Register from 'components/RegisterForm';
 
 
 /**
@@ -15,6 +16,7 @@ const App = () => (
       <Switch>
         <ProtectedRoute path="/dashboard" component={Dashboard} />
         <Route exact path="/" component={HomePage} />
+        <Route exact path="/register" component={Register} />
       </Switch>
     </ProfileProvider>
   </Router>

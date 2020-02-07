@@ -6,10 +6,11 @@ const initialState = { loggedIn: false, name: {} };
 const store = createContext(initialState);
 const { Provider } = store;
 
-const BASE_URL = 'http://localhost:5000/api';
+const BASE_URL = 'http://192.168.0.51:5000/api';
 
 const LOGIN = 'LOGIN';
 const LOGOUT = 'LOGOUT';
+const REGISTER = 'REGISTER';
 
 const ProfileProvider = ({ children }) => {
   const [state, dispatch] = useReducer((prevState, action) => {
@@ -17,6 +18,10 @@ const ProfileProvider = ({ children }) => {
 
     switch (type) {
       case LOGIN: {
+        // Store the profile data in the state
+        return { ...prevState, loggedIn: true, ...payload };
+      }
+      case REGISTER: {
         // Store the profile data in the state
         return { ...prevState, loggedIn: true, ...payload };
       }
@@ -39,6 +44,12 @@ const useProfileProvider = () => {
     .post(`${BASE_URL}/login`, credentials)
     .then(({ data }) => {
       dispatch({ type: LOGIN, payload: data });
+    });
+
+  const register = credentials => axios
+    .post(`${BASE_URL}/register`, credentials)
+    .then(({ data }) => {
+      dispatch({ type: REGISTER, payload: data });
     });
 
   const logout = () => dispatch({

@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
 import { useProfileProvider } from 'contexts/profile';
 
-const Login = () => {
-  const { login } = useProfileProvider();
+const Login = (props) => {
+  const { history } = props;
+  const { login, state: { loggedIn } } = useProfileProvider();
   const [userDetails, setUserDetails] = useState({ });
 
   const attemptLogin = (event) => {
     event.preventDefault();
-    login(userDetails);
+    login(userDetails).then(() => {
+      history.push('/dashboard')
+    });
+    
+    
   };
 
   /**
@@ -26,11 +31,16 @@ const Login = () => {
 
   return (
     <form className="login-form">
-      <input name="username" type="text" onChange={updateInput} />
-      <input name="password" type="password" onChange={updateInput} />
-      <button type="submit" onClick={attemptLogin} onChange={updateInput}>
+      <label> UserName </label>
+      <input name="username" type="text" onChange={updateInput} /><br/><br/>
+      <label> Password </label>
+      <input name="password" type="password" onChange={updateInput} /><br/><br/>
+      <button type="submit" onClick={attemptLogin}>
         Login
       </button>
+      <a onClick={() => history.push('/register')} style={{ cursor: 'pointer' }}>
+        ...Don't have account?
+      </a>
     </form>
   );
 };
