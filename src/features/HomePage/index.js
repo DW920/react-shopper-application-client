@@ -6,6 +6,7 @@ import LoginForm from 'components/LoginForm';
 
 const HomePage = (props) => {
   const { state, state: { loggedIn } } = useProfileProvider();
+  console.log(document.cookie);
   return (
     <div className="home-page">
       <h1>Welcome to the HomePage, the future home of greatness!</h1>

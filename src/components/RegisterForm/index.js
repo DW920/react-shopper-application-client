@@ -1,10 +1,11 @@
 import React, { useState, Fragment } from 'react';
 import { useProfileProvider } from 'contexts/profile';
 import { withRouter } from 'react-router-dom'
+import cookie from 'react-cookies'
 
 const Register = (props) => {
-  const { history } = props;
-  const { Register } = useProfileProvider();
+  const { history, cookies } = props;
+  const { register } = useProfileProvider();
   const [userDetails, setUserDetails] = useState({ });
   const [error, setError] = useState(false);
 
@@ -15,7 +16,10 @@ const Register = (props) => {
   const attemptRegister = (event) => {
     event.preventDefault();
     if( passwordValidate() ){
-      Register(userDetails);
+      register(userDetails).then(() => {
+        console.log('cookie session', cookie.loadAll())
+        history.push('/dashboard')
+      });
     } else {
       setError(({ error: true }))
     }
@@ -41,10 +45,10 @@ const Register = (props) => {
       <form className="Register-form">
       <h1>Create Account</h1>
         <label> First Name </label>
-        <input name="firstname" type="text" onChange={updateInput} /><br/><br/>
+        <input name="firstName" type="text" onChange={updateInput} /><br/><br/>
         <label> Last Name </label>
-        <input name="lastname" type="text" onChange={updateInput} /><br/><br/>
-        <label>U ser Name </label>
+        <input name="lastName" type="text" onChange={updateInput} /><br/><br/>
+        <label>User Name </label>
         <input name="username" type="text" onChange={updateInput} /><br/><br/>
         <label> Password </label>
         <input name="password" type="password" onChange={updateInput} /><br/><br/>
